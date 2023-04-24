@@ -152,58 +152,68 @@
         palabraIngresada.push("a");
         let simbolosAceptados=new Pila();
       
-        function transiciones(estadoActual, simbolo1,simbolo2){ // Mapa de transiciones
-        if(nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")|| (simbolo1=='a'&&simbolo2=="b")||(simbolo1=='b'&&simbolo2=="a")||(simbolo1=='b'&&simbolo2=="#")||(simbolo1=='a'&&simbolo2=="#"))){ return nodes.get(0);}
-        else if (nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){return nodes.get(1);}
-        else if (nodes.get(1).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){ return nodes.get(1); }
-        else if (nodes.get(1).id==estadoActual && ((simbolo1=='B'&&simbolo2=="#"))){ return nodes.get(2); }
-        else { return undefined;}
-        
-        };
-    
-      
-        function validaCadena(cadena,simbolosaceptados){
-            
-            
-            let palabrasValidadas=simbolosaceptados;
-            let nodosRecorridos=[0];
-            let estadoActual = 0;
-            
-            
-          for (const simbolo of cadena) {
-            simbolo2=palabrasValidadas.get();
-            const transicion = transiciones(estadoActual, simbolo,simbolo2);
-            if (transicion === undefined) {
-              let función2=[false,nodosRecorridos];
-              return función2;
-              
-            }
-            
-            estadoActual = transicion.id;
-            cadena.pop();
-            palabrasValidadas.pop();
-            palabrasValidadas.push(simbolo2);
-            palabrasValidadas.push(simbolo);
-            if (estadoActual!=0){
-              nodosRecorridos.push(estadoActual);
-            }
-            
+       function validaCadena(estadoActual,cadena,simbolosAceptados){
+          console.log(estadoActual);
+          console.log(cadena.get());
+          console.log(simbolosAceptados.get());
+          simbolo1=cadena.get();
+          simbolo2=simbolosAceptados.get();
+          if(estadoActual==2 && simbolo1==undefined && simbolo2=="#"){
+            return true;
           }
-          let función=[estadoActual,nodosRecorridos];
-          return función;
-  
-      };
-      function aceptaCadena(cadena,palabrasValidadas){
-        let validacion=validaCadena(cadena,palabrasValidadas)[0];
-        if(validacion==2){
-          return true;
+          if(nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")|| (simbolo1=='a'&&simbolo2=="b")||(simbolo1=='b'&&simbolo2=="a")||(simbolo1=='b'&&simbolo2=="#")||(simbolo1=='a'&&simbolo2=="#"))){
+            cadena.pop();
+            simbolosAceptados.pop();
+            simbolosAceptados.push(simbolo2);
+            simbolosAceptados.push(simbolo1);
+            if(validaCadena(nodes.get(0).id,cadena,simbolosAceptados)==true){
+              return true;
+              
+            }else{
+              cadena.push(simbolo2);
+              simbolosAceptados.pop();
+              console.log(false);
+            }
+          }
+          if (nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){
+                cadena.pop();
+                simbolosAceptados.pop();
+                
+                if(validaCadena(nodes.get(1).id,cadena,simbolosAceptados)==true){
+                  return true;
+                }else{
+                  cadena.push(simbolo2);
+                  simbolosAceptados.pop();
+                }
+              }
+          if (nodes.get(1).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){
+                cadena.pop();
+                simbolosAceptados.pop();
+                
+                
+                if(validaCadena(nodes.get(1).id,cadena,simbolosAceptados)==true){
+                  return true;
+                }else{
+                  cadena.push(simbolo2);
+                  simbolosAceptados.pop();
+                }
+          }
+          if (nodes.get(1).id==estadoActual && ((simbolo1==undefined &&simbolo2=="#"))){
+              
+              simbolosAceptados.pop();
+              simbolosAceptados.push("#");
+              if(validaCadena(nodes.get(2).id,cadena,simbolosAceptados)==true){
+                  return true;
+                  
+                }else{
+                  cadena.push(simbolo2);
+                  simbolosAceptados.pop();
+                }
+          }
           
-        }else{
-          return false;
-          
+              
+
         }
-        
-      };
 
         
     
