@@ -76,7 +76,7 @@
         { id: 2, label: "r",color: {background: "#ff0000"}}
         
       ]);      
-      let letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","#a,#/#a"];
+      let letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
       let letras0to1=["b,b/B","a,a/B"];
       let letras1to1=["b,b/B","a,a/B"];
       let letras1to2=["B,#/#"];
@@ -152,7 +152,14 @@
         palabraIngresada.push("a");
         let simbolosAceptados=new Pila();
       
-    
+        function transiciones(estadoActual, simbolo1,simbolo2){ // Mapa de transiciones
+        if(nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")|| (simbolo1=='a'&&simbolo2=="b")||(simbolo1=='b'&&simbolo2=="a")||(simbolo1=='b'&&simbolo2=="#")||(simbolo1=='a'&&simbolo2=="#"))){ return nodes.get(0);}
+        else if (nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){return nodes.get(1);}
+        else if (nodes.get(1).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){ return nodes.get(1); }
+        else if (nodes.get(1).id==estadoActual && ((simbolo1=='B'&&simbolo2=="#"))){ return nodes.get(2); }
+        else { return undefined;}
+        
+        };
     
      
      
