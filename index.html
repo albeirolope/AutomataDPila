@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <title>AFD</title>
+    <script
+      type="text/javascript"
+      src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"
+    ></script>
+    <style type="text/css">
+      #mynetwork {
+        width: 600px;
+        height: 400px;
+        padding: auto;
+        margin:  auto;
+        border: 1px solid rgb(172, 74, 74);
+        background: white;
+      }
+      #histoy{
+        width: 600px;
+        height: 400px;
+        padding: auto;
+        margin-left:initial;
+        border: 1px solid rgb(0, 0, 0);
+        
+      }
+      
+      body{
+        background: rgb(2,0,36);
+        background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+        color: aliceblue;    
+        font: 20px;  }
+      #lenguaje1{
+        background: white;
+        color: black;
+        font: 20px;
+      }  
+      #lenguaje2{
+        background: white;
+        color: black;
+        font: 20px;
+      }  
+      #btnValidar{
+        background: white;
+        color: black;
+        font: 20px;
+      }  
+      
+      
+    </style>
+  </head>
+  <body>
+    <button id="lenguaje1" onclick="changeLanguage('es')">Español</button>
+  <button id="lenguaje2" onclick="changeLanguage('en')">English</button>
+
+    <div id="mynetwork"></div>
+    <div id="history"></div>
+    <input type="text" id="inputPalabra" method="get" placeholder="Escribe una palabra">
+    <button id="btnValidar">Validar Cadena</button>
+    <p id="resultado"></p>
+    <p id="Simbolos"></p>
+    <div class="animation-container">
+      <div id="animacion"class="animation">Velocidad</div>
+    </div>
+    <div class="control-bar">
+      <input type="range" min="500" max="1999" value="5" id="speedRange">
+    </div>
+    <div id="insertar"></div>
+    
+    <script type="text/javascript">
+      // create an array with nodes
+      var nodes = new vis.DataSet([
+        { id: 0, label: "p", color: {background: "#ff0000", border:"#000000"}, font:{color:"black"}},
+        { id: 1, label: "q" ,color: {background: "#ff0000", border:"#000000"}, font:{color:"black"}},
+        { id: 2, label: "r",color: {background: "#ff0000"}}
+        
+      ]);      
+      
+      // create an array with edges
+      var edges = new vis.DataSet([
+        { from: 0,label:" a " , to: 1, arrows: "to"},
+        { from: 1,label:" b " , to: 2, arrows: "to"},
+        { from: 2,label:" b " , to: 3, arrows: "to"},
+        { from: 1,label:" a ", to: 1, arrows: "to" },
+        { from: 0,label:" b ", to: 0, arrows: "to" }
+      ]);
+
+      // create a network
+      var container = document.getElementById("mynetwork");
+      var data = {
+        nodes: nodes,
+        edges: edges,
+      };
+      var options = {
+        nodes: {
+          shape: "circule",
+          size: 20,
+          color: {
+            background: "#ff0000",
+            border: "#000000",
+            highlight: {
+              background: "#00ff00",
+              border: "#000000",
+            },
+          },
+          font: {
+            color: "#ffffff",
+            size: 14,
+          },
+        },
+        edges: {
+          arrows: {
+            to: { enabled: true, scaleFactor: 1, type: "arrow" },
+          },
+        },
+      };
+      
+      
+      var network = new vis.Network(container, data, options);
+      
+      
+      
+    
+    
+     
+     
+    </script>
+   
+  </body>
+</html>
