@@ -68,25 +68,32 @@
     </div>
     <div id="insertar"></div>
     
-    <script type="text/javascript">
+   <script type="text/javascript">
       // create an array with nodes
       var nodes = new vis.DataSet([
         { id: 0, label: "p", color: {background: "#ff0000", border:"#000000"}, font:{color:"black"}},
         { id: 1, label: "q" ,color: {background: "#ff0000", border:"#000000"}, font:{color:"black"}},
         { id: 2, label: "r",color: {background: "#ff0000"}}
         
-        
       ]);      
-      
+      let letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","#a,#/#a"];
+      let letras0to1=["b,b/B","a,a/B"];
+      let letras1to1=["b,b/B","a,a/B"];
+      let letras1to2=["B,#/#"];
+      function mostrarletras(listadeletras){
+        var string="";
+        for(const i of listadeletras){
+            string=string+i+"\n";
+        }
+        return string;
+      }
       // create an array with edges
       var edges = new vis.DataSet([
-        { from: 0,label:" a " , to: 1, arrows: "to"},
-        { from: 1,label:" b " , to: 2, arrows: "to"},
-        { from: 2,label:" b " , to: 3, arrows: "to"},
-        { from: 1,label:" a ", to: 1, arrows: "to" },
-        { from: 0,label:" b ", to: 0, arrows: "to" }
+        { from: 0,label:mostrarletras(letras0to1) , to: 1, arrows: "to"},
+        { from: 1,label:mostrarletras(letras1to2), to: 2, arrows: "to"},
+        { from: 1,label:mostrarletras(letras1to1), to: 1, arrows: "to" },
+        { from: 0,label:mostrarletras(letras0to0)+"\n\n\n\n\n\n\n\n", to: 0, arrows: "to" }
       ]);
-
       // create a network
       var container = document.getElementById("mynetwork");
       var data = {
