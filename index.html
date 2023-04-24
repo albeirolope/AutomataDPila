@@ -162,10 +162,10 @@
         };
     
       
-        function validaCadena(cadena,palabrasValidadas){
+        function validaCadena(cadena,simbolosaceptados){
             
             
-            let palabrasValidadas=palabrasValidadas;
+            let palabrasValidadas=simbolosaceptados;
             let nodosRecorridos=[0];
             let estadoActual = 0;
             
@@ -193,7 +193,22 @@
           return función;
   
       };
+      function aceptaCadena(cadena,palabrasValidadas){
+        let validacion=validaCadena(cadena,palabrasValidadas)[0];
+        if(validacion==2){
+          return true;
+          
+        }else{
+          return false;
+          
+        }
+        
+      };
 
+        
+    
+      console.log(aceptaCadena(palabraIngresada,simbolosAceptados));
+     
      
     </script>
    
