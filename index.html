@@ -161,7 +161,39 @@
         
         };
     
-     
+      
+        function validaCadena(cadena,palabrasValidadas){
+            
+            
+            let palabrasValidadas=palabrasValidadas;
+            let nodosRecorridos=[0];
+            let estadoActual = 0;
+            
+            
+          for (const simbolo of cadena) {
+            simbolo2=palabrasValidadas.get();
+            const transicion = transiciones(estadoActual, simbolo,simbolo2);
+            if (transicion === undefined) {
+              let función2=[false,nodosRecorridos];
+              return función2;
+              
+            }
+            
+            estadoActual = transicion.id;
+            cadena.pop();
+            palabrasValidadas.pop();
+            palabrasValidadas.push(simbolo2);
+            palabrasValidadas.push(simbolo);
+            if (estadoActual!=0){
+              nodosRecorridos.push(estadoActual);
+            }
+            
+          }
+          let función=[estadoActual,nodosRecorridos];
+          return función;
+  
+      };
+
      
     </script>
    
