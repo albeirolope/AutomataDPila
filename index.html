@@ -127,7 +127,30 @@
       
       var network = new vis.Network(container, data, options);
       
-      
+      class Pila {
+        constructor() {
+            this.items = [];
+        }
+
+        push(elemento) {
+            this.items.push(elemento);
+        }
+
+        pop() {
+            if (this.items.length === 0) {
+            return null;
+            }
+            return this.items.pop();
+        }
+        }
+        let palabraIngresada=new Pila();
+        palabraIngresada.push("b");
+        palabraIngresada.push("b");
+        palabraIngresada.push("a");
+        palabraIngresada.push("b");
+        palabraIngresada.push("b");
+        palabraIngresada.push("a");
+        let simbolosAceptados=new Pila();
       
     
     
