@@ -143,80 +143,93 @@
             return this.items.pop();
         }
         }
-        let palabraIngresada=new Pila();
+        var palabraIngresada=new Pila();
         palabraIngresada.push("b");
         palabraIngresada.push("b");
         palabraIngresada.push("a");
         palabraIngresada.push("b");
         palabraIngresada.push("b");
         palabraIngresada.push("a");
-        let simbolosAceptados=new Pila();
-      
-       function validaCadena(estadoActual,cadena,simbolosAceptados){
-          console.log(estadoActual);
-          console.log(cadena.get());
-          console.log(simbolosAceptados.get());
-          simbolo1=cadena.get();
-          simbolo2=simbolosAceptados.get();
-          if(estadoActual==2 && simbolo1==undefined && simbolo2=="#"){
-            return true;
-          }
-          if(nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")|| (simbolo1=='a'&&simbolo2=="b")||(simbolo1=='b'&&simbolo2=="a")||(simbolo1=='b'&&simbolo2=="#")||(simbolo1=='a'&&simbolo2=="#"))){
-            cadena.pop();
-            simbolosAceptados.pop();
-            simbolosAceptados.push(simbolo2);
-            simbolosAceptados.push(simbolo1);
-            if(validaCadena(nodes.get(0).id,cadena,simbolosAceptados)==true){
+        var simbolosAceptados=new Pila();
+     
+     function validaCadena(estadoInicial,cadena,simbolosAceptados){
+          var estadoActual=estadoInicial;
+          var simbolo1=cadena;
+          var simbolo2=simbolosAceptados;
+          
+          console.log(simbolo1.items);
+          console.log(simbolo2.items);
+         
+          console.log("-----segundo if----");
+          console.log(simbolo1.get());
+          console.log(simbolo2.get());
+          console.log("----------------");
+          if (nodes.get(0).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
+               let temp1=[];
+               temp1.push(simbolo1.get());
+               let temp2=[];
+               temp2.push(simbolo2.get());
+               
+                simbolo1.pop();
+                simbolo2.pop();
+                
+                if(validaCadena(nodes.get(1).id,simbolo1,simbolo2)==true){
+                  return true;
+                }else{
+                  simbolo1.push(temp1[temp1.length-1]);
+                  simbolo2.push(temp2[temp2.length-1]);
+                }
+              }
+              if(nodes.get(0).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")|| (simbolo1.get()=='a'&&simbolo2.get()=="b")||(simbolo1.get()=='b'&&simbolo2.get()=="a")||(simbolo1.get()=='b'&&simbolo2.get()=="#")||(simbolo1.get()=='a'&&simbolo2.get()=="#"))){
+            simbolo2.push(simbolo1.get());
+            simbolo1.pop();
+            
+           
+            
+            console.log(estadoActual);
+             console.log(simbolo1.items);
+            console.log(simbolo2.items);
+            if(validaCadena(nodes.get(0).id,simbolo1,simbolo2)==true){
               return true;
               
             }else{
-              cadena.push(simbolo2);
-              simbolosAceptados.pop();
-              console.log(false);
+              simbolo1.push(simbolo2.get());
+              simbolo2.pop();
+              
+              console.log(estadoActual);
+             console.log(simbolo1.items);
+            console.log(simbolo2.items);
             }
           }
-          if (nodes.get(0).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){
-                cadena.pop();
-                simbolosAceptados.pop();
+              console.log("-----tercer if----");
+              console.log(estadoActual);
+          console.log(simbolo1.get());
+          console.log(simbolo2.get());
+          console.log("----------------");
+          if (nodes.get(1).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
+              let temp11=[];
+               temp11.push(simbolo1.get());
+               let temp22=[];
+               temp22.push(simbolo2.get());
+                simbolo1.pop();
+                simbolo2.pop();
                 
-                if(validaCadena(nodes.get(1).id,cadena,simbolosAceptados)==true){
+                
+                if(validaCadena(nodes.get(1).id,simbolo1,simbolo2)==true){
                   return true;
                 }else{
-                  cadena.push(simbolo2);
-                  simbolosAceptados.pop();
-                }
-              }
-          if (nodes.get(1).id==estadoActual && ((simbolo1=='b'&&simbolo2=="b")||(simbolo1=='a'&&simbolo2=="a"))){
-                cadena.pop();
-                simbolosAceptados.pop();
-                
-                
-                if(validaCadena(nodes.get(1).id,cadena,simbolosAceptados)==true){
-                  return true;
-                }else{
-                  cadena.push(simbolo2);
-                  simbolosAceptados.pop();
+                  simbolo1.push(temp11[temp11.length-1]);
+                  simbolo2.push(temp22[temp22.length-1]);
                 }
           }
-          if (nodes.get(1).id==estadoActual && ((simbolo1==undefined &&simbolo2=="#"))){
+          if (nodes.get(1).id==estadoActual && ((simbolo1.get()==undefined &&simbolo2.get()=="#"))){
               
-              simbolosAceptados.pop();
-              simbolosAceptados.push("#");
-              if(validaCadena(nodes.get(2).id,cadena,simbolosAceptados)==true){
-                  return true;
-                  
-                }else{
-                  cadena.push(simbolo2);
-                  simbolosAceptados.pop();
-                }
+            return true;
           }
           
-              
+          return false;
 
         }
-
-        
-    
       console.log(aceptaCadena(palabraIngresada,simbolosAceptados));
      
      
