@@ -152,18 +152,12 @@
         palabraIngresada.push("a");
         var simbolosAceptados=new Pila();
      
-     function validaCadena(estadoInicial,cadena,simbolosAceptados){
+    function validaCadena(estadoInicial,cadena,simbolosAceptados){
           var estadoActual=estadoInicial;
           var simbolo1=cadena;
           var simbolo2=simbolosAceptados;
           
-          console.log(simbolo1.items);
-          console.log(simbolo2.items);
-         
-          console.log("-----segundo if----");
-          console.log(simbolo1.get());
-          console.log(simbolo2.get());
-          console.log("----------------");
+          
           if (nodes.get(0).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
                let temp1=[];
                temp1.push(simbolo1.get());
@@ -186,9 +180,6 @@
             
            
             
-            console.log(estadoActual);
-             console.log(simbolo1.items);
-            console.log(simbolo2.items);
             if(validaCadena(nodes.get(0).id,simbolo1,simbolo2)==true){
               return true;
               
@@ -196,16 +187,10 @@
               simbolo1.push(simbolo2.get());
               simbolo2.pop();
               
-              console.log(estadoActual);
-             console.log(simbolo1.items);
-            console.log(simbolo2.items);
+             
             }
           }
-              console.log("-----tercer if----");
-              console.log(estadoActual);
-          console.log(simbolo1.get());
-          console.log(simbolo2.get());
-          console.log("----------------");
+              
           if (nodes.get(1).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
               let temp11=[];
                temp11.push(simbolo1.get());
