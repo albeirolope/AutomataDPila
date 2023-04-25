@@ -228,7 +228,7 @@
             if(array[i-1]>=0){
               apagarNodo(array[i-1]);
             }
-            quitartransicion();
+            apagartransicion();
 
             encenderNodo(array[i]);
             validarTransicion(array,array2,i);
@@ -249,56 +249,62 @@
           updateArray();
         }
 
+        function apagarTransicion(){
+          var simbolos= document.getElementById("Simbolos");
+
+          simbolos.textContent="";
+        }
         function validarTransicion(array,array2,i){
+          var simbolos= document.getElementById("Simbolos");
+
           if(array[i]==0 && array[i+1]==0 && array2[i]=="bb"){
-            letras0to0=["b,b/bb"];
-                
+            simbolos.textContent="b,b/bb";
             }
             if(array[i]==0 && array[i+1]==0 && array2[i]=="ab"){
-              letras0to0=["a,b/ba"];
-                console.log("a,b/ba");
+              
+              simbolos.textContent="a,b/ba";
+
             } 
             if(array[i]==0 && array[i+1]==0 && array2[i]=="ba"){
-              letras0to0=["b,a/ab"];
-                console.log("b,a/ab");
+              
+              simbolos.textContent="b,a/ab";
+
             } 
             if(array[i]==0 && array[i+1]==0 && array2[i]=="aa"){
-              letras0to0=["a,a/aa"];
-                console.log("a,a/aa");
+              
+              simbolos.textContent="a,a/aa";
+
             } 
             if(array[i]==0 && array[i+1]==0 && array2[i]=="b#"){
-              letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
-                console.log("b,#/#b");
+              simbolos.textContent="b,#/#b";
+                
             } 
             if(array[i]==0 && array[i+1]==0 && array2[i]=="bb"){
-              letras0to0=["a,#/#a"];
-                
+              
+              simbolos.textContent="a,#/#a";
+
             }  
             if(array[i]==0 && array[i+1]==1 && array2[i]=="bb"){
-              letras0to1=["b,b/B"];
+              
+              simbolos.textContent="b,b/B";
+
                 
             } 
             if(array[i]==0 && array[i+1]==1 && array2[i]=="aa"){
-              letras0to1=["a,a/B"];
+              simbolos.textContent=="a,a/B";
                 
             } 
             if(array[i]==1 && array[i+1]==1 && array2[i]=="bb"){
-                letras1to1=["b,b/B"];
+              simbolos.textContent=="b,b/B";
                 
             } 
             if(array[i]==1 && array[i+1]==1 && array2[i]=="aa"){
-                letras1to1=["a,a/B"];
+              simbolos.textContent="a,a/B";
                 
             } 
             if(array[i]==1 && array[i+1]==2 && array2[i]=="undefined#"){
-                console.log("B,#/#");
+              simbolos.textContent="B,#/#";
             } 
-        }
-        function quitartransicion(){
-           letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
-           letras0to1=["b,b/B","a,a/B"];
-           letras1to1=["b,b/B","a,a/B"];
-           letras1to2=["B,#/#"];
         }
       function cambiarFondoNodo(nodeId, color) {
       // Obtener el nodo por su ID
