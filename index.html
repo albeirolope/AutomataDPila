@@ -143,13 +143,7 @@
             return this.items.pop();
         }
         }
-       let palabraIngresada=new Pila();
-        palabraIngresada.push("a");
-        palabraIngresada.push("b");
-        palabraIngresada.push("b");
-        palabraIngresada.push("b");
-        palabraIngresada.push("b");
-        palabraIngresada.push("a");
+       
         let simbolosAceptados=new Pila();
         simbolosAceptados.push("#");
         var nodosRecorridos=[];
@@ -324,10 +318,67 @@
       cambiarFondoNodo(nodo,"#00ff00")
     }
     
-console.log(validaCadena(0,palabraIngresada,simbolosAceptados));
-console.log(nodosRecorridos); 
-console.log(simbolosRecorridos); 
-animateArrayTraversal(nodosRecorridos,simbolosRecorridos,1000);
+var aceptaCaden="Palabra aceptada, profe coloquenos 50 puntos";
+var niegaCaden="Palabra no aceptada";
+function changeLanguage(language) {
+      const boton = document.getElementById('btnValidar');
+      const barraVelocidad = document.getElementById('animacion');
+      const input = document.getElementById('inputPalabra');
+      // Utilizamos un condicional para cambiar los textos según el idioma seleccionado
+      if (language === 'es') {
+        boton.textContent = 'Validar Cadena';
+        barraVelocidad.textContent = 'Velocidad';
+       input.placeholder="Escribe una palabra";
+       aceptaCaden="Palabra aceptada, profe coloquenos 50 puntos";
+       niegaCaden="Palabra no aceptada";
+      } else if (language === 'en') {
+        boton.textContent = 'Validate String';
+        barraVelocidad.textContent = 'Speed';
+        input.placeholder="Write a word";
+        aceptaCaden="Word accepted, teacher give us fifty points";
+        niegaCaden="Word not accepted";
+      }else if(language==='fc'){
+        boton.textContent = 'Valider la chaîne';
+        barraVelocidad.textContent = 'Vitesse';
+        input.placeholder="Écrire un mot";
+        aceptaCaden="Mot accepté, le professeur nous donne cinquante points";
+        niegaCaden="mot non accepté";
+      }
+    }
+var inputPalabra = document.getElementById("inputPalabra");
+      
+        var btnValidar = document.getElementById("btnValidar");
+        var resultado = document.getElementById("resultado");
+        var speedRange = document.getElementById('speedRange');
+        var textoSimbolos=document.getElementById('Simbolos');
+        var insertarElmentoEnBase= document.getElementById('insertar')
+        btnValidar.addEventListener("click", function(){
+          let palabraIngresada=new Pila();
+          let palabra = Array.from(inputPalabra.value).reverse();
+          for (const simbol of palabra){
+            palabraIngresada.push(simbol);
+          } 
+          let validacion=validaCadena(0,palabraIngresada,simbolosAceptados);
+          reiniciarNodo();
+          textoSimbolos.textContent="";
+          
+          
+          
+          if (validacion){
+            resultado.textContent=aceptaCaden;
+            sintetizadorDeVoz(aceptaCaden);
+          }else{
+            resultado.textContent=niegaCaden;
+            sintetizadorDeVoz(niegaCaden);
+          }
+          
+          animateArrayTraversal(nodosRecorridos,simbolosRecorridos,2000-speedRange.value);
+          
+          
+          
+          
+          
+        });
      
      
     </script>
