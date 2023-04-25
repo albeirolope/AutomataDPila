@@ -143,22 +143,25 @@
             return this.items.pop();
         }
         }
-        var palabraIngresada=new Pila();
-        palabraIngresada.push("b");
-        palabraIngresada.push("b");
+       let palabraIngresada=new Pila();
         palabraIngresada.push("a");
         palabraIngresada.push("b");
         palabraIngresada.push("b");
+        palabraIngresada.push("b");
+        palabraIngresada.push("b");
         palabraIngresada.push("a");
-        var simbolosAceptados=new Pila();
-     
-    function validaCadena(estadoInicial,cadena,simbolosAceptados){
+        let simbolosAceptados=new Pila();
+        simbolosAceptados.push("#");
+        var nodosRecorridos=[];
+        var simbolosRecorridos=[];
+        function validaCadena(estadoInicial,cadena,simbolosAceptados){
           var estadoActual=estadoInicial;
           var simbolo1=cadena;
           var simbolo2=simbolosAceptados;
-          
-          
+          nodosRecorridos.push(estadoActual);
+          simbolosRecorridos.push(cadena.get()+simbolosAceptados.get());
           if (nodes.get(0).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
+              
                let temp1=[];
                temp1.push(simbolo1.get());
                let temp2=[];
@@ -174,10 +177,11 @@
                   simbolo2.push(temp2[temp2.length-1]);
                 }
               }
+             
               if(nodes.get(0).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")|| (simbolo1.get()=='a'&&simbolo2.get()=="b")||(simbolo1.get()=='b'&&simbolo2.get()=="a")||(simbolo1.get()=='b'&&simbolo2.get()=="#")||(simbolo1.get()=='a'&&simbolo2.get()=="#"))){
             simbolo2.push(simbolo1.get());
             simbolo1.pop();
-            
+           
            
             
             if(validaCadena(nodes.get(0).id,simbolo1,simbolo2)==true){
@@ -190,7 +194,7 @@
              
             }
           }
-              
+           
           if (nodes.get(1).id==estadoActual && ((simbolo1.get()=='b'&&simbolo2.get()=="b")||(simbolo1.get()=='a'&&simbolo2.get()=="a"))){
               let temp11=[];
                temp11.push(simbolo1.get());
@@ -207,15 +211,117 @@
                   simbolo2.push(temp22[temp22.length-1]);
                 }
           }
+          
           if (nodes.get(1).id==estadoActual && ((simbolo1.get()==undefined &&simbolo2.get()=="#"))){
-              
+            nodosRecorridos.push(2);
             return true;
           }
           
           return false;
 
         }
-      console.log(aceptaCadena(palabraIngresada,simbolosAceptados));
+        function animateArrayTraversal(array,array2, delay) {
+          let i = 0;
+
+          function updateArray() {
+            // Actualizar el estado del arreglo o realizar operaciones en cada iteración
+            if(array[i-1]>=0){
+              apagarNodo(array[i-1]);
+            }
+            quitartransicion();
+
+            encenderNodo(array[i]);
+            validarTransicion(array,array2,i);
+            console.log(array2[i]);
+           
+            
+
+            i++;
+
+            // Comprobar si se ha alcanzado el final del arreglo
+            if (i < array.length) {
+              // Programar la siguiente iteración con un retardo
+              setTimeout(updateArray, delay);
+            }
+          }
+
+          // Iniciar la animación
+          updateArray();
+        }
+
+        function validarTransicion(array,array2,i){
+          if(array[i]==0 && array[i+1]==0 && array2[i]=="bb"){
+            letras0to0=["b,b/bb"];
+                
+            }
+            if(array[i]==0 && array[i+1]==0 && array2[i]=="ab"){
+              letras0to0=["a,b/ba"];
+                console.log("a,b/ba");
+            } 
+            if(array[i]==0 && array[i+1]==0 && array2[i]=="ba"){
+              letras0to0=["b,a/ab"];
+                console.log("b,a/ab");
+            } 
+            if(array[i]==0 && array[i+1]==0 && array2[i]=="aa"){
+              letras0to0=["a,a/aa"];
+                console.log("a,a/aa");
+            } 
+            if(array[i]==0 && array[i+1]==0 && array2[i]=="b#"){
+              letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
+                console.log("b,#/#b");
+            } 
+            if(array[i]==0 && array[i+1]==0 && array2[i]=="bb"){
+              letras0to0=["a,#/#a"];
+                
+            }  
+            if(array[i]==0 && array[i+1]==1 && array2[i]=="bb"){
+              letras0to1=["b,b/B"];
+                
+            } 
+            if(array[i]==0 && array[i+1]==1 && array2[i]=="aa"){
+              letras0to1=["a,a/B"];
+                
+            } 
+            if(array[i]==1 && array[i+1]==1 && array2[i]=="bb"){
+                letras1to1=["b,b/B"];
+                
+            } 
+            if(array[i]==1 && array[i+1]==1 && array2[i]=="aa"){
+                letras1to1=["a,a/B"];
+                
+            } 
+            if(array[i]==1 && array[i+1]==2 && array2[i]=="undefined#"){
+                console.log("B,#/#");
+            } 
+        }
+        function quitartransicion(){
+           letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
+           letras0to1=["b,b/B","a,a/B"];
+           letras1to1=["b,b/B","a,a/B"];
+           letras1to2=["B,#/#"];
+        }
+      function cambiarFondoNodo(nodeId, color) {
+      // Obtener el nodo por su ID
+      var nodo = nodes.get(nodeId);
+      // Actualizar el color de fondo del nodo
+      nodo.color.background = color;
+      // Actualizar el nodo en el DataSet
+      nodes.update(nodo);
+    }
+    function sintetizadorDeVoz(texto) {
+      speechSynthesis.speak(new SpeechSynthesisUtterance(texto));
+    }
+    function apagarNodo(nodo){
+      cambiarFondoNodo(nodo,"red");
+    }
+    function encenderNodo(nodo){
+      cambiarFondoNodo(nodo,"#00ff00")
+    }
+    
+console.log(validaCadena(0,palabraIngresada,simbolosAceptados));
+console.log(nodosRecorridos); 
+console.log(simbolosRecorridos); 
+animateArrayTraversal(nodosRecorridos,simbolosRecorridos,1000);
      
      
     </script>
