@@ -30,25 +30,58 @@
         color: aliceblue;    
         font: 20px;  }
       #lenguaje1{
-        background: white;
-        color: black;
+        background: none;
+        color: white;
         font: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        border-radius: 10px;
+        padding: 5px;
+        border: 1px solid white;
       }  
       #lenguaje2{
-        background: white;
-        color: black;
+        background: none;
+        color: white;
         font: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        border-radius: 10px;
+        border: 1px solid white;
+        padding: 5px;
+        
       }  
       #lenguaje3{
-        background: white;
-        color: black;
+        background: none;
+        color: white;
         font: 20px;
+        font-family: 'Times New Roman', Times, serif;
+        border-radius: 10px;
+        border: 1px solid white;
+        padding: 5px;
       }  
       #btnValidar{
-        background: white;
-        color: black;
+        background: scroll;
+        color: white;
+        border: 1px solid white;
         font: 20px;
+        padding: 5px;
+        border-radius: 10px;
+        font-family: 'Times New Roman', Times, serif;
       }  
+      #inputPalabra{
+        padding: 6px;
+        border-radius:10px;
+        font-family: 'Times New Roman', Times, serif;
+        background: scroll;
+        border: 1px solid white;
+        color: white;
+      }
+      .pilas{
+        border: 1px solid white;
+        width: 20%;
+        height: 80px;
+        border-bottom: 10px;
+        border-radius: 3px;
+      }
+      
       .stack-container {
   display: flex;
   justify-content: center;
@@ -77,12 +110,12 @@
   margin-bottom: 5px;
 }
       
-    </style>
+  </style>
   </head>
   <body>
-    <button id="lenguaje1" onclick="changeLanguage('es')">Español</button>
+  <button id="lenguaje1" onclick="changeLanguage('es')">Español</button>
   <button id="lenguaje2" onclick="changeLanguage('en')">English</button>
-      <button id="lenguaje3" onclick="changeLanguage('fc')">Frances</button>
+  <button id="lenguaje3" onclick="changeLanguage('fc')">Frances</button>
 
     <div id="mynetwork"></div>
     <div id="history"></div>
@@ -90,8 +123,13 @@
     <button id="btnValidar">Validar Cadena</button>
     <p id="resultado"></p>
     <p id="Simbolos"></p>
-    <p id="pila1"></p>
-    <p id="pila2"></p>
+    <div class="pilas">
+      <p id="pila1"></p>
+      <p id="pila2"></p>
+    </div>
+    
+    
+  
     <div class=""stack-container>
       <p id="mensaje"></p>
     </div>
@@ -487,3 +525,4 @@ var inputPalabra = document.getElementById("inputPalabra");
    
   </body>
 </html>
+
