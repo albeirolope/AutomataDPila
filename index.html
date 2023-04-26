@@ -39,12 +39,43 @@
         color: black;
         font: 20px;
       }  
+      #lenguaje3{
+        background: white;
+        color: black;
+        font: 20px;
+      }  
       #btnValidar{
         background: white;
         color: black;
         font: 20px;
       }  
-      
+      .stack-container {
+  display: flex;
+  justify-content: center;
+  margin-top: -271px;
+  margin-left: 1000px;
+  background-color: beige;
+  color: black;
+}
+
+.stack {
+  display: flex;
+  flex-direction: column-reverse;
+  height: 200px;
+  overflow: hidden;
+  width: 200px;
+  margin: 0 10px;
+}
+
+.item {
+  width: 100%;
+  height: 40px;
+  background-color: #ccc;
+  border: 1px solid #999;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 5px;
+}
       
     </style>
   </head>
@@ -52,7 +83,6 @@
     <button id="lenguaje1" onclick="changeLanguage('es')">Español</button>
   <button id="lenguaje2" onclick="changeLanguage('en')">English</button>
       <button id="lenguaje3" onclick="changeLanguage('fc')">Frances</button>
-  
 
     <div id="mynetwork"></div>
     <div id="history"></div>
@@ -62,6 +92,9 @@
     <p id="Simbolos"></p>
     <p id="pila1"></p>
     <p id="pila2"></p>
+    <div class=""stack-container>
+      <p id="mensaje"></p>
+    </div>
     <div class="animation-container">
       <div id="animacion"class="animation">Velocidad</div>
     </div>
@@ -70,7 +103,7 @@
     </div>
     <div id="insertar"></div>
     
-   <script type="text/javascript">
+    <script type="text/javascript">
       // create an array with nodes
       var nodes = new vis.DataSet([
         { id: 0, label: "p", color: {background: "#ff0000", border:"#000000"}, font:{color:"black"}},
@@ -78,10 +111,10 @@
         { id: 2, label: "r",color: {background: "#ff0000"}}
         
       ]);      
-      let letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
-      let letras0to1=["b,b/B","a,a/B"];
-      let letras1to1=["b,b/B","a,a/B"];
-      let letras1to2=["B,#/#"];
+      var letras0to0=["b,b/bb","a,b/ba","b,a/ab","a,a/aa","b,#/#b","a,#/#a"];
+      var letras0to1=["b,b/B","a,a/B"];
+      var letras1to1=["b,b/B","a,a/B"];
+      var letras1to2=["B,#/#"];
       function mostrarletras(listadeletras){
         var string="";
         for(const i of listadeletras){
@@ -129,6 +162,7 @@
       
       var network = new vis.Network(container, data, options);
       
+      
       class Pila {
         constructor() {
             this.items = [];
@@ -144,11 +178,18 @@
             }
             return this.items.pop();
         }
+        get(){
+            return this.items[this.items.length-1];
         }
-       
+        }
+        
         let simbolosAceptados=new Pila();
         simbolosAceptados.push("#");
-        let palabraIngresada= new Pila();
+        var palabraIngresada=new Pila();
+       
+
+        
+
         var nodosRecorridos=[];
         var simbolosRecorridos=[];
         function validaCadena(estadoInicial,cadena,simbolosAceptados){
@@ -217,7 +258,7 @@
           return false;
 
         }
-        function animateArrayTraversal(array,array2,array3,array4, delay) {
+        function animateArrayTraversal(array,array2,array3,array4,delay) {
           let i = 0;
 
           function updateArray() {
@@ -225,13 +266,13 @@
             if(array[i-1]>=0){
               apagarNodo(array[i-1]);
             }
-            apagartransicion();
+            apagarTransicion();
 
             encenderNodo(array[i]);
             validarTransicion(array,array2,i);
-             MostrarPilas(array,array2,array3,array4,i);
-            
+            MostrarPilas(array,array2,array3,array4,i);
            
+            
             
 
             i++;
@@ -246,7 +287,6 @@
           // Iniciar la animación
           updateArray();
         }
-
         function apagarTransicion(){
           var simbolos= document.getElementById("Simbolos");
 
@@ -304,7 +344,7 @@
               simbolos.textContent="B,#/#";
             } 
         }
-     function MostrarPilas(array,array2,array3,array4,i){
+    function MostrarPilas(array,array2,array3,array4,i){
       let pila1=array3;
       let pila2=array4;
       var ppila1=document.getElementById("pila1");
@@ -343,7 +383,7 @@
                 
             } 
             if(array[i]==1 && array[i+1]==2 ){
-              pila2.pop();
+              
               pila2.push("#");
             } 
             
@@ -352,6 +392,11 @@
       
     }    
        
+  function reiniciarNodo(){
+      for(var i=0; i<3; i++){
+        apagarNodo(i);
+      }
+    }
       function cambiarFondoNodo(nodeId, color) {
       // Obtener el nodo por su ID
       var nodo = nodes.get(nodeId);
@@ -370,6 +415,7 @@
       cambiarFondoNodo(nodo,"#00ff00")
     }
     
+
 var aceptaCaden="Palabra aceptada, profe coloquenos 50 puntos";
 var niegaCaden="Palabra no aceptada";
 function changeLanguage(language) {
@@ -397,6 +443,8 @@ function changeLanguage(language) {
         niegaCaden="mot non accepté";
       }
     }
+
+   
 var inputPalabra = document.getElementById("inputPalabra");
       
         var btnValidar = document.getElementById("btnValidar");
@@ -404,6 +452,7 @@ var inputPalabra = document.getElementById("inputPalabra");
         var speedRange = document.getElementById('speedRange');
         var textoSimbolos=document.getElementById('Simbolos');
         var insertarElmentoEnBase= document.getElementById('insertar')
+        
         btnValidar.addEventListener("click", function(){
           let palabra = Array.from(inputPalabra.value).reverse();
           aceptados=["#"];
@@ -423,19 +472,17 @@ var inputPalabra = document.getElementById("inputPalabra");
           if (validacion){
             resultado.textContent=aceptaCaden;
             sintetizadorDeVoz(aceptaCaden);
+            
           }else{
             resultado.textContent=niegaCaden;
             sintetizadorDeVoz(niegaCaden);
           }
           
-      
-          
+          let texto=palabra+" -> "+resultado.textContent;
           
           
           
         });
-     
-     
     </script>
    
   </body>
