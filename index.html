@@ -60,6 +60,8 @@
     <button id="btnValidar">Validar Cadena</button>
     <p id="resultado"></p>
     <p id="Simbolos"></p>
+    <p id="pila1"></p>
+    <p id="pila2"></p>
     <div class="animation-container">
       <div id="animacion"class="animation">Velocidad</div>
     </div>
@@ -146,6 +148,7 @@
        
         let simbolosAceptados=new Pila();
         simbolosAceptados.push("#");
+        let palabraIngresada= new Pila();
         var nodosRecorridos=[];
         var simbolosRecorridos=[];
         function validaCadena(estadoInicial,cadena,simbolosAceptados){
@@ -227,7 +230,7 @@
             encenderNodo(array[i]);
             validarTransicion(array,array2,i);
              MostrarPilas(array,array2,array3,array4,i);
-            console.log(array2[i]);
+            
            
             
 
@@ -306,12 +309,12 @@
       let pila2=array4;
       var ppila1=document.getElementById("pila1");
       var ppila2=document.getElementById("pila2");
-      if(pila1.items.length==0){
+      if(pila1.length==0){
           pila1.push("B");
       }
       if(array[i]==0 && array[i+1]==0){
             
-            pila2.push(pila1.get());
+            pila2.push(pila1[pila1.length-1]);
             pila1.pop();
             
             }
@@ -343,11 +346,12 @@
               pila2.pop();
               pila2.push("#");
             } 
-
-            ppila1.textContent=pila1.items;
-            ppila2.textContent=pila2.items;
+            
+            ppila1.textContent="|"+pila1;
+            ppila2.textContent="|"+pila2;
       
     }    
+       
       function cambiarFondoNodo(nodeId, color) {
       // Obtener el nodo por su ID
       var nodo = nodes.get(nodeId);
@@ -401,15 +405,19 @@ var inputPalabra = document.getElementById("inputPalabra");
         var textoSimbolos=document.getElementById('Simbolos');
         var insertarElmentoEnBase= document.getElementById('insertar')
         btnValidar.addEventListener("click", function(){
-          let palabraIngresada=new Pila();
           let palabra = Array.from(inputPalabra.value).reverse();
+          aceptados=["#"];
+         
           for (const simbol of palabra){
             palabraIngresada.push(simbol);
           } 
+
+          
           let validacion=validaCadena(0,palabraIngresada,simbolosAceptados);
           reiniciarNodo();
           textoSimbolos.textContent="";
           
+          animateArrayTraversal(nodosRecorridos,simbolosRecorridos,palabra,aceptados,2000-speedRange.value);
           
           
           if (validacion){
@@ -420,8 +428,7 @@ var inputPalabra = document.getElementById("inputPalabra");
             sintetizadorDeVoz(niegaCaden);
           }
           
-          animateArrayTraversal(nodosRecorridos,simbolosRecorridos,palabraIngresada,simbolosAceptados,2000-speedRange.value);
-          
+      
           
           
           
